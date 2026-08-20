@@ -20,8 +20,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the current directory contents into the container at /app
 COPY . .
 
-# Expose port 5001 to the outside world
+# Expose the default port (Render dynamically assigns $PORT)
 EXPOSE 5001
 
-# Run gunicorn to serve the Flask app
-CMD ["gunicorn", "--bind", "0.0.0.0:5001", "app:app"]
+# Run gunicorn and bind to the PORT environment variable (default 5001)
+CMD gunicorn --bind 0.0.0.0:${PORT:-5001} app:app
