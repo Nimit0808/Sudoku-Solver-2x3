@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6x6 Sudoku Solver AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Sudoku Solver <span>AI</span></h1>
+            <p>Upload a 6x6 Sudoku image and let AI extract and solve it instantly.</p>
+        </header>
+
+        <main>
+            <div class="upload-zone" id="drop-zone">
+                <input type="file" id="file-input" accept="image/*" hidden>
+                <div class="upload-content">
+                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <h3>Drag & Drop your image here</h3>
+                    <p>or <button type="button" id="browse-btn">browse</button> from your device</p>
+                    <p style="margin-top: 15px;"><button type="button" id="camera-btn" class="btn btn-secondary">Use Camera</button></p>
+                </div>
+            </div>
+
+            <div class="camera-container" id="camera-container" style="display: none;">
+                <video id="camera-feed" autoplay playsinline></video>
+                <div class="camera-controls">
+                    <button class="btn btn-primary" id="capture-btn">Capture Photo</button>
+                    <button class="btn btn-secondary" id="close-camera-btn">Cancel</button>
+                </div>
+                <canvas id="camera-canvas" style="display: none;"></canvas>
+            </div>
+
+            <div class="crop-container" id="crop-container" style="display: none;">
+                <div class="crop-image-wrapper">
+                    <img id="crop-image" src="" alt="Image to crop">
+                </div>
+                <div class="camera-controls">
+                    <button class="btn btn-primary" id="crop-solve-btn">Crop & Solve</button>
+                    <button class="btn btn-secondary" id="cancel-crop-btn">Cancel</button>
+                </div>
+            </div>
+
+            <div class="preview-container" id="preview-container" style="display: none;">
+                <img id="image-preview" src="" alt="Preview">
+                <button class="btn btn-primary" id="solve-btn">Solve Sudoku</button>
+            </div>
+
+            <div class="loading-state" id="loading-state" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing image and solving...</p>
+            </div>
+
+            <div class="error-box" id="error-box" style="display: none;"></div>
+
+            <div class="result-container" id="result-container" style="display: none;">
+                <div class="grid-section">
+                    <h2>Extracted Grid</h2>
+                    <div class="sudoku-grid" id="original-grid"></div>
+                </div>
+                <div class="grid-section">
+                    <h2>Solved Grid</h2>
+                    <div class="sudoku-grid solved" id="solved-grid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
