@@ -22,4 +22,4 @@ COPY . .
 EXPOSE 5001
 
 # Run gunicorn and bind to the PORT environment variable (default 5001)
-CMD gunicorn --bind 0.0.0.0:${PORT:-5001} app:app
+CMD gunicorn --timeout 120 --workers 1 --threads 2 --bind 0.0.0.0:${PORT:-5001} app:app
